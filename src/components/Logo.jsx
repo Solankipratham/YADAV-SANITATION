@@ -1,7 +1,51 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-/** Brand mark — swap this component when the client logo is provided. */
-export function LogoMark({ className = 'h-10 w-10' }) {
+/**
+ * Logo files that may be dropped into public/images/.
+ * The first file that actually loads wins; otherwise the built-in mark is used.
+ */
+const DARK_BG_CANDIDATES = [
+  '/images/logo-light.png',
+  '/images/logo-light.svg',
+  '/images/logo-light.webp',
+]
+
+const LIGHT_BG_CANDIDATES = [
+  '/logo-yadav-sanitation.png',
+  '/logo-yadav-sanitation.png',
+  '/logo-yadav-sanitation.png',
+  '/logo-yadav-sanitation.png',
+]
+
+/** Probes candidate paths in order and returns the first one that loads. */
+function useLogoSrc(candidates) {
+  const [src, setSrc] = useState(null)
+
+  useEffect(() => {
+    let cancelled = false
+
+    const probe = (i) => {
+      if (cancelled || i >= candidates.length) return
+      const img = new Image()
+      img.onload = () => {
+        if (!cancelled) setSrc(candidates[i])
+      }
+      img.onerror = () => probe(i + 1)
+      img.src = candidates[i]
+    }
+
+    probe(0)
+    return () => {
+      cancelled = true
+    }
+  }, [candidates])
+
+  return src
+}
+
+/** Built-in engineering mark — used when no logo file is present. */
+function FallbackMark({ className = 'h-10 w-10' }) {
   return (
     <svg viewBox="0 0 64 64" className={className} aria-hidden="true">
       <rect width="64" height="64" rx="10" fill="#1687D9" />
@@ -18,6 +62,29 @@ export function LogoMark({ className = 'h-10 w-10' }) {
   )
 }
 
+/**
+ * Brand mark. Renders the client's logo from public/images when present,
+ * otherwise the built-in mark.
+ *
+ * @param {'light'|'dark'} surface  surface the logo sits on
+ */
+export function LogoMark({ className = 'h-10 w-10', surface = 'light' }) {
+  const candidates = surface === 'dark' ? DARK_BG_CANDIDATES : LIGHT_BG_CANDIDATES
+  const src = useLogoSrc(candidates)
+
+  if (!src) return <FallbackMark className={className} />
+
+  return (
+    <img
+      src={src}
+      alt=""
+      aria-hidden="true"
+      className={`w-auto object-contain ${className}`}
+      decoding="async"
+    />
+  )
+}
+
 export default function Logo({ compact = false, onClick }) {
   return (
     <Link
@@ -26,7 +93,7 @@ export default function Logo({ compact = false, onClick }) {
       className="group flex items-center gap-3"
       aria-label="Yadav Sanitation — home"
     >
-      <LogoMark className="h-9 w-9 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 sm:h-10 sm:w-10" />
+      <LogoMark className="h-9 w-auto sm:h-10" />
       <span className="flex flex-col leading-none">
         <span className="font-display text-[15px] font-extrabold uppercase tracking-[0.14em] text-ink sm:text-[17px]">
           Yadav <span className="text-primary">Sanitation</span>

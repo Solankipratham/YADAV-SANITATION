@@ -48,7 +48,8 @@ Almost all editable content lives in two files:
 
 | What | Where |
 | --- | --- |
-| Logo | `src/components/Logo.jsx` (`LogoMark` + wordmark) |
+| Logo | Drop `logo.png` (or `logo.svg`) into `public/images/` — it is picked up automatically. Optional `logo-light.png` for the dark footer. See `public/images/README.txt` |
+| Logo component | `src/components/Logo.jsx` (`LogoMark` + wordmark) |
 | Favicon | `public/favicon.svg` |
 | Contact phone / email / WhatsApp / address | `src/lib/content.js` → `contactInfo` |
 | Google Maps | `src/pages/Contact.jsx` → replace the map placeholder block with the embed `<iframe>` |

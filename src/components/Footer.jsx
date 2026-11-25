@@ -47,7 +47,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-4">
             <div className="flex items-center gap-3">
-              <LogoMark className="h-11 w-11" />
+              <LogoMark className="h-11 w-auto" surface="dark" />
               <span className="font-display text-lg font-extrabold uppercase tracking-[0.14em]">
                 Yadav <span className="text-primary">Sanitation</span>
               </span>
