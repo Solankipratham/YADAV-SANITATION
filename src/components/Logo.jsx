@@ -11,6 +11,7 @@ const DARK_BG_CANDIDATES = [
   '/images/logo-light.webp',
 ]
 
+
 const LIGHT_BG_CANDIDATES = [
   '/logo-yadav-sanitation.png',
   '/logo-yadav-sanitation.png',
