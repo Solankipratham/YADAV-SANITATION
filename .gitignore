@@ -1,0 +1,12 @@
+node_modules
+dist
+.DS_Store
+*.local
+.env
+.imgcheck
+.imgcheck2
+.imgcheck3
+.sheets
+.imgcheck*.mjs
+.sheets.mjs
+public/sheet.html

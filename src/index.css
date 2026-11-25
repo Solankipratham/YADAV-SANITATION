@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-white font-sans text-ink antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #1687d9;
+  color: #ffffff;
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-5 sm:px-8 lg:px-10;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.24em] text-primary sm:text-xs;
+  }
+
+  .display-title {
+    @apply font-display text-[34px] font-extrabold leading-[1.04] tracking-[-0.025em] text-ink sm:text-[46px] lg:text-[58px];
+  }
+
+  .section-title {
+    @apply font-display text-[28px] font-extrabold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[36px] lg:text-[44px];
+  }
+
+  .lead {
+    @apply text-[15px] leading-relaxed text-muted sm:text-base;
+  }
+
+  .blue-word {
+    @apply text-primary;
+  }
+
+  .hairline {
+    @apply border-line;
+  }
+
+  .grid-pattern {
+    background-image: linear-gradient(to right, rgba(22, 135, 217, 0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(22, 135, 217, 0.07) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .dot-pattern {
+    background-image: radial-gradient(rgba(7, 90, 150, 0.18) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+}
+
+/* Slim scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f5fafd;
+}
+::-webkit-scrollbar-thumb {
+  background: #c8e8fa;
+  border: 2px solid #f5fafd;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1687d9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
